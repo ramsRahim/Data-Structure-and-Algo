@@ -39,6 +39,23 @@ int len(Node* head)
     return count;
 }
 
+int searchByValueUnique(Node* head, int val)
+{
+    int count =1;
+
+    while(head->value != val)
+    {
+        head = head->Next;
+        if(head == NULL)
+        {
+            return -1;
+        }
+        count++;
+    }
+
+    return count;
+}
+
 void insertAtEnd(Node* &head,int val)
 {
     Node *newNode = new Node(val);
@@ -97,5 +114,7 @@ int main()
     int listLen = len(head);
     cout<<"The length of the list is "<<listLen<<endl;
     display(head);
+    int position=searchByValueUnique(head,3);
+    cout<<"the value is in "<<position<<" position"<<endl;
     return 0;
 }
