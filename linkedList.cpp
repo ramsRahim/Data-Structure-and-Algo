@@ -132,6 +132,22 @@ void insertAtAnyPosition(Node* &head,int position,int val)
     }
 }
 
+void insertAfterValueUnique(Node *&head,int srchval, int val)
+{
+    int position = searchByValueUnique(head,srchval);
+    insertAtAnyPosition(head,position+1,val);
+}
+
+void insertAfterValueDuplicate(Node *&head,int srchval, int val)
+{
+    Test t = searchByValueDuplicate(head,srchval);
+
+    for(int i=1 ; i<t.position[0];i++)
+    {
+        insertAtAnyPosition(head,t.position[i]+i,val);
+    } 
+}
+
 int main()
 {
     Node* head = NULL;
@@ -153,5 +169,8 @@ int main()
         cout<<T.position[i]<<" ";
     }
     cout<<endl;
+    //insertAfterValueUnique(head,3,6);
+    insertAfterValueDuplicate(head,3,6);
+    display(head);
     return 0;
 }
