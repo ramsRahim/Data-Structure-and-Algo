@@ -232,6 +232,50 @@ void deletionBySpecificValueDuplicate(Node *&head,int srchval)
         
 }
 
+Node* reverseNonRecursive(Node *&head)
+{
+    Node* prev = NULL;
+    Node* current = head;
+
+    if(head == NULL)
+    {
+        return head;
+    }
+
+    Node* next = head->Next;
+
+    while (1)
+    {
+        current->Next = prev;
+        prev = current;
+        current=next;
+        if(current == NULL)
+        {
+            break;
+        }
+        next = next->Next;
+    }
+    
+    return prev;
+}
+
+Node* revereseRecursive(Node *&head)
+{
+    //Base call
+    if(head == NULL || head->Next == NULL)
+        {
+            if(head == NULL) cout<<"The list is empty"<<endl;
+            return head;
+        }
+
+    //Recursive call
+    Node* newHead = revereseRecursive(head->Next);
+    head->Next->Next = head;
+    head->Next = NULL;
+
+    return newHead;
+}
+
 int main()
 {
     Node* head = NULL;
@@ -239,7 +283,7 @@ int main()
     insertAtEnd(head,1);
     insertAtEnd(head,2);
     insertAtEnd(head,5);
-    insertAtEnd(head,2);
+    //insertAtEnd(head,2);
     //insertAtHead(head,3);
     //insertAtHead(head,10);
     //insertAtAnyPosition(head,5,3);
@@ -257,9 +301,11 @@ int main()
     //insertAfterValueUnique(head,3,6);
     //insertAfterValueDuplicate(head,3,6);
     //deletionAtHead(head);
-    // deletionAtTail(head);
+    //deletionAtTail(head);
     //deletionAtSpecific(head,3);
-    deletionBySpecificValueDuplicate(head,2);
+    //deletionBySpecificValueDuplicate(head,2);
+    //head = reverseNonRecursive(head);
+    head = revereseRecursive(head);
     display(head);
     return 0;
 }
