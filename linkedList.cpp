@@ -45,6 +45,24 @@ int len(Node* head)
     return count;
 }
 
+int findMid(Node *head)
+{
+    if(head == NULL)
+    {
+        return -1;
+    }
+    Node* slow = head;
+    Node* fast = head;
+
+    while(fast != NULL && fast->Next != NULL)
+    {
+        slow = slow->Next;
+        fast = fast->Next->Next;
+    }
+
+    return slow->value;
+}
+
 int searchByValueUnique(Node* head, int val)
 {
     int count =1;
@@ -283,7 +301,8 @@ int main()
     insertAtEnd(head,1);
     insertAtEnd(head,2);
     insertAtEnd(head,5);
-    //insertAtEnd(head,2);
+    insertAtEnd(head,10);
+    //insertAtEnd(head,23);
     //insertAtHead(head,3);
     //insertAtHead(head,10);
     //insertAtAnyPosition(head,5,3);
@@ -305,7 +324,9 @@ int main()
     //deletionAtSpecific(head,3);
     //deletionBySpecificValueDuplicate(head,2);
     //head = reverseNonRecursive(head);
-    head = revereseRecursive(head);
-    display(head);
+    //head = revereseRecursive(head);
+    //display(head);
+    int mid = findMid(head);
+    cout<<mid<<endl;
     return 0;
 }

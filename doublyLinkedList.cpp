@@ -49,7 +49,7 @@ void displayReverse(doublyNode* head)
     cout<<endl; 
 }
 
-int len(doublyNode* head)
+int countLen(doublyNode* head)
 {
     int count = 0;
     while(head != NULL)
@@ -59,6 +59,24 @@ int len(doublyNode* head)
     }
 
     return count;
+}
+
+int findMid(doublyNode *head)
+{
+    if(head == NULL)
+    {
+        return -1;
+    }
+    doublyNode* slow = head;
+    doublyNode* fast = head;
+
+    while(fast != NULL && fast->Next != NULL)
+    {
+        slow = slow->Next;
+        fast = fast->Next->Next;
+    }
+
+    return slow->value;
 }
 
 void insertAtEnd(doublyNode *& head, int val)
@@ -100,7 +118,7 @@ int main()
     //insertAtHead(head,3);
     //insertAtHead(head,10);
     //insertAtAnyPosition(head,5,3);
-    //int listLen = len(head);
+    //int listLen = countLen(head);
     //cout<<"The length of the list is "<<listLen<<endl;
     display(head);
     displayReverse(head);
