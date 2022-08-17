@@ -121,6 +121,8 @@ int main()
     //int listLen = countLen(head);
     //cout<<"The length of the list is "<<listLen<<endl;
     display(head);
-    displayReverse(head);
+    //displayReverse(head);
+    int mid = findMid(head);
+    cout<<mid<<endl;
     return 0;
 }

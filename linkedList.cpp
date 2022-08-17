@@ -63,6 +63,79 @@ int findMid(Node *head)
     return slow->value;
 }
 
+void makeCycle(Node *&head, int pos)
+{
+    int count=1;
+    Node *temp = head;
+    Node *startNode;
+
+    while(temp->Next != NULL)
+    {
+        if(count==pos)
+        {
+            startNode = temp;
+        }
+        temp = temp->Next;
+        count++;
+    }
+
+    temp->Next = startNode;
+}
+
+bool detectCycle(Node* head)
+{
+    Node* slow = head;
+    Node* fast = head;
+
+    while(fast != NULL && fast->Next != NULL)
+    {
+        slow = slow->Next;
+        fast = fast->Next->Next;
+
+        //Cycle check
+        if(slow == fast)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void removeCycle(Node* &head)
+{
+    bool cycleStatus = detectCycle(head);
+    if(cycleStatus == false)
+    {
+        return;
+    }
+    else
+    {
+        Node* slow = head;
+        Node* fast = head;
+
+        // Step 1: fast = slow
+        do{
+            slow = slow->Next;
+            fast = fast->Next->Next;
+        }while(slow!=fast);
+        
+        //Step 2: Re Initialization
+        fast = head;
+
+        // Step 3: fast->Next = slow->Next
+        while(fast->Next!=slow->Next)
+        {
+            slow = slow->Next;
+            fast = fast->Next;
+        }
+
+        //Step 4:
+        slow->Next = NULL;
+    }
+}
+
+
 int searchByValueUnique(Node* head, int val)
 {
     int count =1;
@@ -325,8 +398,19 @@ int main()
     //deletionBySpecificValueDuplicate(head,2);
     //head = reverseNonRecursive(head);
     //head = revereseRecursive(head);
-    //display(head);
-    int mid = findMid(head);
-    cout<<mid<<endl;
+    makeCycle(head,2);
+    //int mid = findMid(head);
+    //cout<<mid<<endl;
+    bool cycleStatus = detectCycle(head);
+    if(cycleStatus == true)
+    {
+        cout<<"Cycle exists"<<endl;
+    }
+    else
+    {
+        cout<<"Cycle doesn't exist"<<endl;
+    }
+    removeCycle(head);
+    display(head);
     return 0;
 }
