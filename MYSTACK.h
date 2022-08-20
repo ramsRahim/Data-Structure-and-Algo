@@ -2,14 +2,14 @@
 
 using namespace std;
 
-class Node{
+template<typename N> class Node{
 
 public:
-    int value;
+    N value;
     Node* Next;
     Node* Prev;
 
-    Node(int val)
+    Node(N val)
     {
         value = val;
         Next = NULL;
@@ -17,10 +17,10 @@ public:
     }
 };
 
-class Stack{
+template<typename S> class Stack{
 
-    Node* head;
-    Node* top;
+    Node<S>* head;
+    Node<S>* top;
     int Count =0;
 public:
     Stack(){
@@ -29,9 +29,9 @@ public:
     }
 
     //PUSH
-    void push(int val)
+    void push(S val)
     {
-        Node* newNode = new Node(val);
+        Node<S>* newNode = new Node<S>(val);
         if(head == NULL){
             head = top = newNode;
             Count ++;
@@ -45,15 +45,15 @@ public:
        
     }
     //POP
-    int pop(){
-        Node* delNode;
+    S pop(){
+        Node<S>* delNode;
         delNode = top;
-        int val;
+        S val;
         //there is no element is the Stack
         if(head == NULL)
         {
             cout<< "Stack Underflow"<<endl;
-            return -1;
+            return val;
         }
         if(top == head) //there is only one element
         {
@@ -83,11 +83,12 @@ public:
         return Count;
     }
     //TOp
-    int TOP()
+    S TOP()
     {
+        S chk;
         if(top == NULL){
             cout<<"Stack Underflow"<<endl;
-            return -1;
+            return chk;
         }
         else return top->value;
     }
