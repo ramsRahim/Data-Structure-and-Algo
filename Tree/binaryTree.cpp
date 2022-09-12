@@ -1,4 +1,4 @@
-#include<iostream>
+#include<bits/stdc++.h>
 
 using namespace std;
 
@@ -20,6 +20,7 @@ void spacePrint(int level);
 void inOrder(treeNode* root, string&chk);
 void preOrder(treeNode* root, string&chk);
 void postOrder(treeNode* root, string&chk);
+void levelOrderTraversal(treeNode* root, string &chk);
 
 void inOrder(treeNode* root, string&chk){ //left-> root -> right
 
@@ -91,6 +92,40 @@ void spacePrint(int level){
     }
 }
 
+void levelOrderTraversal(treeNode* root, string &chk)
+{
+    if(root == NULL){
+        return;
+    }
+
+    queue<treeNode*>q;
+    q.push(root);
+    q.push(NULL);
+
+    while(!q.empty()){
+        treeNode* chkNode = q.front();
+        q.pop();
+        if(chkNode != NULL)
+        {
+            //cout<< chkNode->data <<" ";
+            chk+= to_string(chkNode->data);
+            if(chkNode->leftChild!=NULL)
+            {
+                q.push(chkNode->leftChild);
+            }
+            if(chkNode->rightChild!=NULL)
+            {
+                q.push(chkNode->rightChild);
+            }
+        }
+        else{
+            if(!q.empty()){
+                q.push(NULL);
+            }
+        }
+    }
+
+}
 int main()
 {
     int n;
@@ -120,17 +155,20 @@ int main()
         }
     }
 
-    printTree(allNodes[0],0);
+    //printTree(allNodes[0],0);
     string inorderTraversal = "";
     string preorderTraversal = "";
     string postorderTraversal = "";
-    inOrder(allNodes[0],inorderTraversal);
-    preOrder(allNodes[0],preorderTraversal);
-    postOrder(allNodes[0],postorderTraversal);
+    string levelorderTraversal = "";
+    //inOrder(allNodes[0],inorderTraversal);
+    //preOrder(allNodes[0],preorderTraversal);
+    //postOrder(allNodes[0],postorderTraversal);
+    levelOrderTraversal(allNodes[0],levelorderTraversal);
 
-    cout<<"Inorder Traversal : "<< inorderTraversal << endl;
-    cout<<"Preorder Traversal : "<< preorderTraversal << endl;
-    cout<<"Postorder Traversal : "<< postorderTraversal << endl;
+    //cout<<"Inorder Traversal : "<< inorderTraversal << endl;
+    //cout<<"Preorder Traversal : "<< preorderTraversal << endl;
+    //cout<<"Postorder Traversal : "<< postorderTraversal << endl;
+    cout<<"Level Order Traversal : "<< levelorderTraversal << endl;
 
     return 0;
 }
