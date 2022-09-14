@@ -17,35 +17,35 @@ public:
 };
 void printTree(treeNode* root,int level);
 void spacePrint(int level);
-void inOrder(treeNode* root, string&chk);
-void preOrder(treeNode* root, string&chk);
-void postOrder(treeNode* root, string&chk);
+void inOrderTrav(treeNode* root, string&chk);
+void preOrderTrav(treeNode* root, string&chk);
+void postOrderTrav(treeNode* root, string&chk);
 void levelOrderTraversal(treeNode* root, string &chk);
 
-void inOrder(treeNode* root, string&chk){ //left-> root -> right
+void inOrderTrav(treeNode* root, string&chk){ //left-> root -> right
 
     if(root == NULL) return;
 
-    inOrder(root->leftChild,chk);
+    inOrderTrav(root->leftChild,chk);
     chk+=to_string(root->data);
-    inOrder(root->rightChild,chk);
+    inOrderTrav(root->rightChild,chk);
 }
 
-void preOrder(treeNode* root, string&chk){ //root -> left -> right
+void preOrderTrav(treeNode* root, string&chk){ //root -> left -> right
 
     if(root == NULL) return;
 
     chk+=to_string(root->data);
-    preOrder(root->leftChild,chk);
-    preOrder(root->rightChild,chk);
+    preOrderTrav(root->leftChild,chk);
+    preOrderTrav(root->rightChild,chk);
 }
 
-void postOrder(treeNode* root, string&chk){ //left -> right -> root
+void postOrderTrav(treeNode* root, string&chk){ //left -> right -> root
 
     if(root == NULL) return;
 
-    postOrder(root->leftChild,chk);
-    postOrder(root->rightChild,chk);
+    postOrderTrav(root->leftChild,chk);
+    postOrderTrav(root->rightChild,chk);
     chk+=to_string(root->data);
 }
 
@@ -125,49 +125,61 @@ void levelOrderTraversal(treeNode* root, string &chk)
 
 }
 
+int searchInorder(int inOrder[],int current,int start,int end)
+{
+    for(int i=start;i<=end;i++){
+        if(inOrder[i]==current){
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+treeNode* buildTreePreIn(int preOrder[],int inOrder[],int start,int end)
+{
+    static int id = 0;
+
+    int current = preOrder[id];
+    id++;
+
+    treeNode* newNode = new treeNode(current);
+    if(start == end){
+        return newNode;
+    }
+    int pos = searchInorder(inOrder,current,start,end);
+
+    newNode->leftChild = buildTreePreIn(preOrder,inOrder,start,pos-1);
+    newNode->rightChild = buildTreePreIn(preOrder,inOrder,pos+1,end);
+
+    return newNode;
+
+}
+
 int main()
 {
     int n;
     cin>>n;
-    treeNode* allNodes[n];
-
+    int preOrder[n],inOrder[n];
     for(int i=0;i<n;i++)
     {
-        allNodes[i] = new treeNode(-1);
+        cin>>preOrder[i];
     }
-
     for(int i=0;i<n;i++)
     {
-        int value, left,right;
-        cin>>value>>left>>right;
-        allNodes[i]->data = value;
-        if(left>n-1 || right>n-1)
-        {
-            cout<<"Invalid Index"<<endl;
-            break;
-        }
-        if(left!=-1){
-            allNodes[i]->leftChild = allNodes[left];
-        }
-        if(right!=-1){
-            allNodes[i]->rightChild = allNodes[right];
-        }
+        cin>>inOrder[i];
     }
 
-    //printTree(allNodes[0],0);
-    string inorderTraversal = "";
-    string preorderTraversal = "";
-    string postorderTraversal = "";
-    string levelorderTraversal = "";
-    //inOrder(allNodes[0],inorderTraversal);
-    //preOrder(allNodes[0],preorderTraversal);
-    //postOrder(allNodes[0],postorderTraversal);
-    levelOrderTraversal(allNodes[0],levelorderTraversal);
-
-    //cout<<"Inorder Traversal : "<< inorderTraversal << endl;
-    //cout<<"Preorder Traversal : "<< preorderTraversal << endl;
-    //cout<<"Postorder Traversal : "<< postorderTraversal << endl;
-    cout<<"Level Order Traversal : "<< levelorderTraversal << endl;
-
+    treeNode* root = buildTreePreIn(preOrder,inOrder,0,n-1);
+    string chkpre = "";
+    preOrderTrav(root,chkpre);
+    cout<<chkpre<<endl<<endl;
     return 0;
 }
+
+/*
+9
+0 1 3 4 2 5 7 8 6
+3 1 4 0 7 5 8 2 6
+
+*/
