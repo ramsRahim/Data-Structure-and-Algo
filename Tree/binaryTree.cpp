@@ -125,6 +125,62 @@ void levelOrderTraversal(treeNode* root, string &chk)
 
 }
 
+void printLeaves(treeNode* root){
+
+    if(root==NULL) return;
+    if(root->leftChild==NULL && root->rightChild==NULL){
+        cout<<root->data<<" ";
+        return;
+    }
+
+    printLeaves(root->leftChild);
+    printLeaves(root->rightChild);
+}
+
+void printLeftNonLeaves(treeNode* root){
+
+    if(root==NULL) return;
+    if(root->leftChild != NULL){
+        cout<< root->data<<" ";
+        printLeftNonLeaves(root->leftChild);
+
+    }
+    else if(root->rightChild != NULL){
+        cout<< root->data<<" ";
+        printLeftNonLeaves(root->rightChild);
+    }
+}
+
+void printRightNonLeaves(treeNode* root){
+    
+    if(root==NULL) return;
+    if(root->rightChild != NULL){
+        cout<< root->data<<" ";
+        printLeftNonLeaves(root->rightChild);
+
+    }
+    else if(root->leftChild != NULL){
+        cout<< root->data<<" ";
+        printLeftNonLeaves(root->leftChild);
+    }
+}
+
+void boundaryTraversal(treeNode* root){
+
+    if(root==NULL) return;
+    cout<<root->data<<" ";
+
+    //LB Non-Leaves
+    printLeftNonLeaves(root->leftChild);
+    //LB Leaves
+    printLeaves(root->leftChild);
+    //RB Leaves
+    printLeaves(root->rightChild);
+    //RB Non-Leaves
+    printRightNonLeaves(root->rightChild);
+}
+
+
 int main()
 {
     int n;
@@ -162,12 +218,29 @@ int main()
     //inOrder(allNodes[0],inorderTraversal);
     //preOrder(allNodes[0],preorderTraversal);
     //postOrder(allNodes[0],postorderTraversal);
-    levelOrderTraversal(allNodes[0],levelorderTraversal);
+    //levelOrderTraversal(allNodes[0],levelorderTraversal);
+
+    boundaryTraversal(allNodes[0]);
 
     //cout<<"Inorder Traversal : "<< inorderTraversal << endl;
     //cout<<"Preorder Traversal : "<< preorderTraversal << endl;
     //cout<<"Postorder Traversal : "<< postorderTraversal << endl;
-    cout<<"Level Order Traversal : "<< levelorderTraversal << endl;
+    //cout<<"Level Order Traversal : "<< levelorderTraversal << endl;
 
     return 0;
 }
+
+/*
+
+9
+0 1 2
+1 3 4
+2 5 6
+3 -1 -1
+4 -1 -1
+5 7 8
+6 -1 -1
+7 -1 -1
+8 -1 -1
+
+*/
