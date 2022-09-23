@@ -15,6 +15,7 @@ public:
         rightChild = NULL;
     }
 };
+
 void printTree(treeNode* root,int level);
 void spacePrint(int level);
 void inOrder(treeNode* root, string&chk);
@@ -200,6 +201,30 @@ treeNode* insertionBST(treeNode* root, int value){
     return root;
 }
 
+treeNode* searchBST(treeNode* root,int value){
+
+    if(root == NULL){
+        return NULL;
+    }
+
+    if(root->data == value){
+        cout<<root->data;
+        return root;
+    }
+
+    else if(root->data>value){
+        cout<<root->data<<"->";
+        searchBST(root->leftChild,value);
+    }
+    
+    else{
+        cout<<root->data<<"->";
+        searchBST(root->rightChild,value);
+    }
+
+    return NULL;
+}
+
 int main()
 {
     int n;
@@ -216,7 +241,12 @@ int main()
     inOrder(root,traversal);
 
     cout<<traversal<<endl;
-
+    int key;
+    cin>>key;
+    if(searchBST(root,key)==NULL)
+        cout<<endl<<"value doesn't exists"<<endl;
+    else
+        cout<<endl<<"the given value exists"<<endl;
     return 0;
 }
 
