@@ -225,6 +225,44 @@ treeNode* searchBST(treeNode* root,int value){
     return NULL;
 }
 
+treeNode* inordersucc(treeNode* root){
+    treeNode* curr = root;
+    while(curr->leftChild != NULL){
+        curr = curr->leftChild;
+    }
+    return curr;
+}
+
+treeNode* deletionBST(treeNode* root,int value){
+
+    if(value < root->data){
+        root->leftChild = deletionBST(root->leftChild,value);
+    }
+    else if(value > root->data){
+        root->rightChild = deletionBST(root->rightChild,value);
+    }
+    else{
+        if(root->leftChild == NULL){
+            treeNode* temp = root->rightChild;
+            free(root);
+            return temp;
+        }
+        else if(root->rightChild == NULL){
+            treeNode* temp = root->leftChild;
+            free(root);
+            return temp;
+        }
+        else{
+            treeNode* temp = inordersucc(root->rightChild);
+            root->data = temp->data;
+            root->rightChild = deletionBST(root->rightChild,temp->data);
+        }
+
+        return root;
+    }
+    return root;
+}
+
 int main()
 {
     int n;
@@ -237,16 +275,23 @@ int main()
         root = insertionBST(root,value);
     }
 
-    string traversal;
+    string traversal = " ";
     inOrder(root,traversal);
 
     cout<<traversal<<endl;
     int key;
     cin>>key;
-    if(searchBST(root,key)==NULL)
+    /* if(searchBST(root,key)==NULL)
         cout<<endl<<"value doesn't exists"<<endl;
     else
-        cout<<endl<<"the given value exists"<<endl;
+        cout<<endl<<"the given value exists"<<endl;  */
+
+    root = deletionBST(root,key);
+
+    traversal = " ";
+    inOrder(root,traversal);
+
+    cout<<traversal<<endl;
     return 0;
 }
 
