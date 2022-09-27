@@ -263,6 +263,44 @@ treeNode* deletionBST(treeNode* root,int value){
     return root;
 }
 
+void zigzagTraversal(treeNode* root){
+    stack<treeNode*>currentLevel,nextLevel;
+    bool lefttoRight = true ;
+
+    currentLevel.push(root);
+
+    while(!currentLevel.empty()){
+        treeNode* temp = currentLevel.top();
+        currentLevel.pop();
+        
+        cout<<temp->data<<" ";
+
+        if(lefttoRight){
+            if(temp->leftChild){
+                 nextLevel.push(temp->leftChild);
+            }
+            if(temp->rightChild){
+                 nextLevel.push(temp->rightChild);
+            }
+        }
+
+        else{
+            if(temp->rightChild){
+                 nextLevel.push(temp->rightChild);
+            }
+           if(temp->leftChild){
+                 nextLevel.push(temp->leftChild);
+            }
+        }
+        
+        if(currentLevel.empty()){
+            lefttoRight = !lefttoRight;
+            swap(currentLevel,nextLevel);
+        }
+        
+    }
+}
+
 int main()
 {
     int n;
@@ -277,25 +315,26 @@ int main()
 
     string traversal = " ";
     inOrder(root,traversal);
-
     cout<<traversal<<endl;
+    zigzagTraversal(root);
+    /* cout<<traversal<<endl;
     int key;
     cin>>key;
-    /* if(searchBST(root,key)==NULL)
+    if(searchBST(root,key)==NULL)
         cout<<endl<<"value doesn't exists"<<endl;
     else
-        cout<<endl<<"the given value exists"<<endl;  */
+        cout<<endl<<"the given value exists"<<endl; 
 
     root = deletionBST(root,key);
 
     traversal = " ";
     inOrder(root,traversal);
 
-    cout<<traversal<<endl;
+    cout<<traversal<<endl; */
     return 0;
 }
 
 /*
-9
-11 5 9 43 34 1 2 7 21
+10
+11 5 9 43 34 1 2 7 8 21
 */
