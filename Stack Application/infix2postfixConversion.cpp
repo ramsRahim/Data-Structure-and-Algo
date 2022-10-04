@@ -48,6 +48,7 @@ string infixToPostfix(string chk){
 
             st.push(chk[i]);
         }
+        //cout<<result<<endl;
     }
 
     while(!st.empty())
@@ -101,7 +102,7 @@ int main()
 {
     string infix, prefix;
     //cin>>infix;
-    infix = "(7+(4*5))-(2+0)";
+    infix = "(5*((6^2)+(7-(2/6))))-((7*(8+1))+(5*4))";
     prefix = infixToPostfix(infix);
     cout<<prefix<<endl;
     cout<<postfixEvaluation(prefix)<<endl;

@@ -46,7 +46,9 @@ int main(){
     for(auto element:ans){
         cout<<element<<" ";
     }
-        
+    
+
+    cout<<endl<<endl;
     return 0;
 }
 

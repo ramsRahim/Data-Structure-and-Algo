@@ -8,11 +8,11 @@ void heapify(int array[] , int n, int current){
     int leftChild = 2*current + 1;
     int rightChild = 2*current +2;
 
-    if(leftChild< n && array[leftChild]>array[largest]){
+    if(leftChild< n && array[leftChild]<array[largest]){
         largest = leftChild;
     }
 
-    if(rightChild<n && array[rightChild]>array[largest]){
+    if(rightChild<n && array[rightChild]<array[largest]){
         largest = rightChild;
     }
 
@@ -35,6 +35,8 @@ void heapSort(int array[],int size){
     for(int i =size-1; i>=0;i--){
         swap(array[0],array[i]);
         heapify(array,i,0);
+        cout<<"heap"<<endl;
+        printArray(array,size);
     }
 }
 

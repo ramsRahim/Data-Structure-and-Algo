@@ -108,7 +108,7 @@ void levelOrderTraversal(treeNode* root, string &chk)
         if(chkNode != NULL)
         {
             //cout<< chkNode->data <<" ";
-            chk+= to_string(chkNode->data);
+            chk+= to_string(chkNode->data) + " ";
             if(chkNode->leftChild!=NULL)
             {
                 q.push(chkNode->leftChild);
@@ -313,10 +313,11 @@ int main()
         root = insertionBST(root,value);
     }
 
-    string traversal = " ";
+    /* string traversal = " ";
     inOrder(root,traversal);
     cout<<traversal<<endl;
-    zigzagTraversal(root);
+    zigzagTraversal(root); */
+
     /* cout<<traversal<<endl;
     int key;
     cin>>key;
@@ -324,17 +325,24 @@ int main()
         cout<<endl<<"value doesn't exists"<<endl;
     else
         cout<<endl<<"the given value exists"<<endl; 
+    */
+    /* int key1;
+    cin>>key1;
+    root = deletionBST(root,key1);
+    int value;
+    cin>>value;
+    root = insertionBST(root,value);
+    int key;
+    cin>>key;
+    root = deletionBST(root,key); */
+    string traversal = " ";
+    levelOrderTraversal(root,traversal);
 
-    root = deletionBST(root,key);
-
-    traversal = " ";
-    inOrder(root,traversal);
-
-    cout<<traversal<<endl; */
+    cout<<traversal<<endl;
     return 0;
 }
 
 /*
-10
-11 5 9 43 34 1 2 7 8 21
+13
+7 5 12 3 6 9 15 1 4 8 10 13 17  
 */

@@ -111,7 +111,7 @@ int main()
 {
     string infix, prefix;
     //cin>>infix;
-    infix = "(7+(4*5))-(2+0)";
+    infix = "(5*((6^2)+(7-(2/6))))-((7*(8+1))+(5*4))";
     prefix = infixToPrefic(infix);
     cout<<prefix<<endl;
     cout<<prefixEvaluation(prefix)<<endl;
