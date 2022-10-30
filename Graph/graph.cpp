@@ -45,6 +45,20 @@ public:
       }
     }
   }
+
+  void DFS(int source) {
+    static vector<bool> visited(this->v, false);
+    queue<int> Q;
+    visited[source] = true;
+    cout << source << " ";
+
+    for (auto element : adj[source]) {
+      int v = element.first;
+      if (visited[v] != true) {
+        DFS(v);
+      }
+    }
+  }
 };
 
 int main() {
@@ -68,6 +82,10 @@ int main() {
   cout << endl << endl;
 
   g.BFS(source);
+
+  cout << endl << endl;
+
+  g.DFS(source);
 
   return 0;
 }
